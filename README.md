@@ -90,8 +90,11 @@ This project is **MIT Licensed** – free to use and modify!
 ---
 
 ### **🔗 Live Demo**  
-👉 [Try it here!](#) 
+👉 [Click here for the demo][demo]
 
 --- 
 
 
+
+
+[demo]: https://prathyushrnair.github.io/FOC-assignment-1/
