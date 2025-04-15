@@ -1,34 +1,55 @@
-// Login form validation
-document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.getElementById("loginForm");
+const display = document.getElementById('display');
+let currentExpression = '';
 
-    loginForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+function appendNumber(num) {
+    currentExpression += num;
+    updateDisplay();
+}
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
-        let isValid = true;
-
-        // Clear previous error messages
-        document.getElementById("usernameError").textContent = "";
-        document.getElementById("passwordError").textContent = "";
-
-        // Validate username
-        if (username === "") {
-            document.getElementById("usernameError").textContent = "Username is required.";
-            isValid = false;
+function appendOperator(operator) {
+    if (currentExpression === '' && operator === '-') {
+        currentExpression += operator;
+    } else if (currentExpression !== '') {
+        const lastChar = currentExpression.slice(-1);
+        if (['+', '-', '*', '/'].includes(lastChar)) {
+            currentExpression = currentExpression.slice(0, -1) + operator;
+        } else {
+            currentExpression += operator;
         }
+    }
+    updateDisplay();
+}
 
-        // Validate password
-        if (password === "") {
-            document.getElementById("passwordError").textContent = "Password is required.";
-            isValid = false;
+function appendDecimal() {
+    const parts = currentExpression.split(/[+\-*/]/);
+    const lastPart = parts[parts.length - 1];
+    
+    if (!lastPart.includes('.')) {
+        if (lastPart === '') {
+            currentExpression += '0.';
+        } else {
+            currentExpression += '.';
         }
+    }
+    updateDisplay();
+}
 
-        // If valid, submit the form
-        if (isValid) {
-            alert("Login successful!");
-            loginForm.submit();
-        }
-    });
-});
+function clearDisplay() {
+    currentExpression = '';
+    updateDisplay();
+}
+
+function calculate() {
+    try {
+        currentExpression = eval(currentExpression).toString();
+        updateDisplay();
+    } catch (error) {
+        currentExpression = 'Error';
+        updateDisplay();
+        setTimeout(clearDisplay, 1000);
+    }
+}
+
+function updateDisplay() {
+    display.value = currentExpression;
+}
