@@ -75,6 +75,15 @@ button:hover {
     background-color: #e63329;
 }
 
+.backspace {
+    background-color: #ff3b30;
+    color: white;
+}
+
+.backspace:hover {
+    background-color: #e63329;
+}
+
 .span-2 {
     grid-column: span 2;
 }

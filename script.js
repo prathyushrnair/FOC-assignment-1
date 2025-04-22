@@ -39,6 +39,13 @@ function clearDisplay() {
     updateDisplay();
 }
 
+function backspace() {
+    if (currentExpression.length > 0) {
+        currentExpression = currentExpression.slice(0, -1);
+        updateDisplay();
+    }
+}
+
 function calculate() {
     try {
         currentExpression = eval(currentExpression).toString();
